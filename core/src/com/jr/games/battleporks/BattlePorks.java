@@ -1,27 +1,39 @@
 package com.jr.games.battleporks;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
+import com.jr.games.battleporks.recursos.Pantalla;
+import com.jr.games.battleporks.screens.PantallaMenu;
 
-public class BattlePorks extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
+public class BattlePorks extends Game {
+	
+	public SpriteBatch batch;
+	public AssetManager manejador;
+	
+	public Pantalla Menu;
 	
 	@Override
 	public void create () {
+		
+		/*
+		 * Recursos generales para el juego
+		 * batch ->	SpriteBatch encargado de mostrar todos los graficos en el juego
+		 * manejador ->	AssetManager que moderara la carga de recursos para cada pantalla
+		 */
+		
+		manejador = new AssetManager();
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
-	}
-
-	@Override
-	public void render () {
-		Gdx.gl.glClearColor(0.5f, 0.5f, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+		/*
+		 * Pantallas del juego
+		 * Menu ->	Primer pantalla a mostrar con los botones para navegar entre
+		 * 			las pantallas de opciones y jugar
+		 */
+		
+		Menu = new PantallaMenu(this,new Vector2(0, -9.8f),true);
+		
+		setScreen(Menu);
 	}
 }
